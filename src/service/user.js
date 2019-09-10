@@ -41,7 +41,18 @@ module.exports.getAllUsers = function () {
             return resolve(users)
         })
     })
-}
+};
+
+module.exports.saveNewColleague = function (newColleague) {
+    return new Promise((resolve, reject) => {
+        return Users.create(newColleague).then(newUser => {
+            if (!newUser) {
+                throw Object.assign(new Error(), {success: false, message: 'New user not created', code: 500})
+            }
+            return resolve(newUser)
+        })
+    })
+};
 
 module.exports.beautifyUser = function (decodedUser) {
     if (decodedUser.hasOwnProperty("iss")){
