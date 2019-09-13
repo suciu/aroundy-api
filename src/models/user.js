@@ -56,6 +56,10 @@ module.exports = function (sequelize, DataTypes) {
        type: DataTypes.STRING(20),
        allowNull: true
     },
+    balance: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+   },
   }, {
     tableName: 'user',
     instanceMethods: {
@@ -72,14 +76,17 @@ module.exports = function (sequelize, DataTypes) {
         User.belongsTo(models.role, {
           as: 'role',
           foreignKey: 'role_id'
-        })
+        });
         User.Role = {
           model: models.role,
           as: 'role',
           foreignKey: 'role_id'
-        }
+        };
+        User.hasMany(models.requests);
+        User.Request = models.requests
       }
     }
-  })
+  });
+
   return User
-}
+};

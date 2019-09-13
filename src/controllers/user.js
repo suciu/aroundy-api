@@ -8,7 +8,7 @@ module.exports.getInfo = (req, res) => {
     user.getInfo(req.query.token)
     .then(response => res.json({
       success: true,
-      allInfo: response
+      data: response
     }))
     .catch(err => res.status(err.code || 404).json({
       success: false,

@@ -15,7 +15,7 @@ module.exports.getByEmail = function (email) {
         $ne: null
       }
     },
-    include: [User.Role]
+    include: [User.Role, User.Request]
   })
 };
 
@@ -37,6 +37,20 @@ module.exports.findAll = function () {
     return User.findAll();
 };
 
+module.exports.getAllPMs = function (user) {
+    return User.findAll({
+        where: {
+            role_id: [2,3]
+        },
+        include: [User.Role],
+    }).then(pms => {
+        return {
+            pms,
+            user
+        }
+    })
+};
+
 module.exports.create = function (newColleague) {
     return User.create({
         "contactPerson": newColleague.contactPerson,
@@ -46,6 +60,7 @@ module.exports.create = function (newColleague) {
         "name": newColleague.name,
         "phone": newColleague.phone,
         "role_id": newColleague.adminRole ? 3 : 1,
+        "balance": 21
     }).then( response => {
         return this.getById(response.id)
             .then((user)=>{

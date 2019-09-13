@@ -1,17 +1,15 @@
 const Users = require('../repos/users');
 
 module.exports.getInfo = function (token) {
-
     const decodedUser = Users.decode(token),
           beautifyUser = this.beautifyUser(decodedUser);
 
-  return Users.getByEmail(beautifyUser.email).then(user => {
-    if (!user) {
-      throw Object.assign(new Error(), {success: false, message: 'Invalid login credentials', code: 404})
-    }
+    return Users.getByEmail(beautifyUser.email).then(user => {
+        if (!user) {
+          throw Object.assign(new Error(), {success: false, message: 'Invalid login credentials', code: 404})
+        }
 
-    return user;
-    
+        return Users.getAllPMs(user);
   })
 };
 
@@ -59,5 +57,7 @@ module.exports.beautifyUser = function (decodedUser) {
         if(decodedUser.iss.hasOwnProperty("id")){
             return decodedUser.iss;
         }
+    } else {
+        return decodedUser
     }
 };
