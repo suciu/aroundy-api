@@ -1,9 +1,12 @@
 const Requests = require('../repos/requests');
 const Users = require('../repos/users');
 
-module.exports.get = function () {
+module.exports.get = function (token) {
+    const decodedUser = Users.decode(token),
+        beautifyUser = this.beautifyUser(decodedUser);
+
     return new Promise((resolve, reject) => {
-        return Requests.findAll().then(users => {
+        return Requests.findAll(beautifyUser).then(users => {
             return resolve(users)
         })
     })

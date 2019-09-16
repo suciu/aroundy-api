@@ -4,7 +4,7 @@ const requests = require('../service/requests');
  * @param {Object} res
  */
 module.exports.get = (req, res) => {
-    requests.get()
+    requests.get(req.query.token)
         .then(response => res.json({
             success: true,
             data: response

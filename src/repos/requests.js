@@ -1,7 +1,15 @@
 const Requests = require('../models').requests;
 
-module.exports.findAll = function () {
-    return Requests.findAll();
+module.exports.findAll = function (notUser) {
+    return Requests.findAll({
+                where: {
+                    user_id: {
+                        $notLike: notUser.id
+                    }
+                },
+                include: Requests.User
+            }
+    );
 };
 
 module.exports.create = function (newRequest, user) {
