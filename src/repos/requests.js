@@ -25,3 +25,19 @@ module.exports.create = function (newRequest, user) {
         "interval": newRequest.interval
     });
 };
+
+/*
+ Returns a single request object.
+ */
+module.exports.getById = function (id) {
+    return Requests.find({
+        where: {id}
+    })
+};
+
+module.exports.approve = function (requestId) {
+    return Requests.update(
+        {status: "approved"},
+        {where: {id: requestId}}
+    )
+};

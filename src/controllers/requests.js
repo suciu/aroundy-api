@@ -48,3 +48,19 @@ module.exports.saveNewRequest = (req, res) => {
             message: err.message
         }))
 };
+
+/**
+ * @param {Object} req
+ * @param {Object} res
+ */
+module.exports.approve = (req, res) => {
+    requests.approve(req.body)
+        .then(data => res.json({
+            success: true,
+            data: data
+        }))
+        .catch(err => res.status(err.code || 404).json({
+            success: false,
+            message: err.message
+        }))
+};
