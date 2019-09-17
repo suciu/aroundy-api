@@ -23,6 +23,6 @@ module.exports = {
     token: process.env.TOKEN_SECRET || 'HCm8WPeufVDL6tSQV8tP4yGcheeZZta4ZHCNurC3UVnr65E3QAvw5a'
   },
   domain: {
-    web: process.env.WEB_DOMAIN || 'http://aroundy.local'
+    web: process.env.WEB_DOMAIN || 'http://aroundy.demo'
   }
 };
