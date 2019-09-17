@@ -64,3 +64,19 @@ module.exports.approve = (req, res) => {
             message: err.message
         }))
 };
+
+/**
+ * @param {Object} req
+ * @param {Object} res
+ */
+module.exports.deny = (req, res) => {
+    requests.deny(req.body)
+        .then(data => res.json({
+            success: true,
+            data: data
+        }))
+        .catch(err => res.status(err.code || 404).json({
+            success: false,
+            message: err.message
+        }))
+};

@@ -10,5 +10,6 @@ router.route('/').get([checkToken, checkRole, requestsController.get]);
 router.route('/user').get([checkToken, checkRole, requestsController.getByUser]);
 router.route('/save').post([checkToken, checkRole, requestsController.saveNewRequest]);
 router.route('/approve').post([checkToken, checkRole, requestsController.approve]);
+router.route('/deny').post([checkToken, checkRole, requestsController.approve]);
 
 module.exports = router;

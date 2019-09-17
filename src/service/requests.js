@@ -69,6 +69,28 @@ module.exports.approve = function (requestData) {
     });
 };
 
+module.exports.deny = function (requestData) {
+    return Users.getById(requestData.userWhoDeny).then(user => {
+        if (!user) {
+            throw Object.assign(new Error(), {success: false, message: 'No user found', code: 404})
+        }
+
+        if(user.role.alias !== "hr" && user.role.alias !== "pm"){
+            throw Object.assign(new Error(), {success: false, message: 'No permissions to approve', code: 500})
+        }
+
+        return Requests.getById(requestData.requestToBeDenied).then((requestToBeDenied)=>{
+            if (!requestToBeDenied) {
+                throw Object.assign(new Error(), {success: false, message: 'No request was found to be denied', code: 404})
+            }
+
+            return Requests.deny(requestData.requestToBeDenied);
+
+        });
+
+    });
+};
+
 module.exports.beautifyUser = function (decodedUser) {
     if (decodedUser.hasOwnProperty("iss")){
         if(decodedUser.iss.hasOwnProperty("id")){

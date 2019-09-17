@@ -41,3 +41,10 @@ module.exports.approve = function (requestId) {
         {where: {id: requestId}}
     )
 };
+
+module.exports.deny = function (requestId) {
+    return Requests.update(
+        {status: "deny"},
+        {where: {id: requestId}}
+    )
+};
